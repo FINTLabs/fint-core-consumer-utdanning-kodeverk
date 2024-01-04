@@ -1,19 +1,19 @@
-package no.fintlabs.consumer.model.otenhet;
+package no.fintlabs.consumer.model.fagstatus;
 
-import no.fint.model.resource.utdanning.kodeverk.OtStatusResource;
+import no.fint.model.resource.utdanning.kodeverk.FagstatusResource;
 import no.fintlabs.core.consumer.shared.config.ConsumerProps;
 import no.fintlabs.core.consumer.shared.resource.ConsumerConfig;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OtEnhetConfig extends ConsumerConfig<OtStatusResource> {
+public class FagstatusConfig extends ConsumerConfig<FagstatusResource> {
 
-    public OtEnhetConfig(ConsumerProps consumerProps) {
+    public FagstatusConfig(ConsumerProps consumerProps) {
         super(consumerProps);
     }
 
     @Override
     protected String resourceName() {
-        return "otenhet";
+        return "fagstatus";
     }
 }
