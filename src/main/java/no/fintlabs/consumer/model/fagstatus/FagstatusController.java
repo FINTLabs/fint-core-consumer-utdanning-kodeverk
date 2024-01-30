@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @CrossOrigin
 @RestController
-@RequestMapping(name = "Fagstatus", value = RestEndpoints.OTENHET, produces = {FintRelationsMediaType.APPLICATION_HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(name = "Fagstatus", value = RestEndpoints.FAGSTATUS, produces = {FintRelationsMediaType.APPLICATION_HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 public class FagstatusController extends ConsumerRestController<FagstatusResource> {
 
     public FagstatusController(FagstatusService service, FagstatusLinker linker, FintFilterService oDataFilterService) {
