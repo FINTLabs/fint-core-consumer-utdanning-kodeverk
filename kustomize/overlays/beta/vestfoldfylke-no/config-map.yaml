@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: fint-core-consumer-utdanning-kodeverk
 data:
-  fint.consumer.org-id: 'vlfk.no'
-  fint.kafka.topic.org-id: 'vlfk.no'
+  fint.consumer.org-id: 'vestfoldfylke.no'
+  fint.kafka.topic.org-id: 'vestfoldfylke.no'
   spring.kafka.consumer.group-id: 'consumer-utdanning-kodeverk-beta'
   fint.relations.default-base-url: 'https://beta.felleskomponent.no'

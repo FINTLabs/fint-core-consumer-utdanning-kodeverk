@@ -5,5 +5,5 @@ metadata:
 data:
   fint.consumer.org-id: 'telemarkfylke.no'
   fint.kafka.topic.org-id: 'telemarkfylke.no'
-  spring.kafka.consumer.group-id: 'consumer-utdanning-kodeverk-api'
-  fint.relations.default-base-url: 'https://api.felleskomponent.no'
+  spring.kafka.consumer.group-id: 'consumer-utdanning-kodeverk-beta'
+  fint.relations.default-base-url: 'https://beta.felleskomponent.no'
