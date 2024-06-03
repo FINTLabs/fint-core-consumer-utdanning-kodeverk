@@ -1,5 +1,6 @@
 package no.fintlabs.consumer.model.fagstatus;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.utdanning.kodeverk.FagstatusResource;
@@ -20,4 +21,10 @@ public class FagstatusController extends ConsumerRestController<FagstatusResourc
     public FagstatusController(FagstatusService service, FagstatusLinker linker, FintFilterService oDataFilterService) {
         super(service, linker, oDataFilterService);
     }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("systemid", FagstatusResource::getSystemId);
+    }
+
 }
