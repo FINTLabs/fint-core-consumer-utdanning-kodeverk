@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(name = "OTStatus", value = RestEndpoints.OTSTATUS, produces = {FintRelationsMediaType.APPLICATION_HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 public class OtStatusController extends ConsumerRestController<OtStatusResource> {
 
-    public OtStatusController(OtStatusService service, OtStatusLinker linker, FintFilterService oDataFilterService, ServerCodecConfigurer serverCodecConfigurer) {
+    public OtStatusController(OtStatusService service, OtStatusLinker linker, FintFilterService oDataFilterService) {
         super(service, linker, oDataFilterService);
     }
 
