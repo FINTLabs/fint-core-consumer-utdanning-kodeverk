@@ -2,7 +2,7 @@ package no.fintlabs.consumer.model.otenhet;
 
 import jakarta.annotation.PostConstruct;
 import no.fint.model.felles.kompleksedatatyper.Identifikator;
-import no.fint.model.resource.utdanning.kodeverk.OtStatusResource;
+import no.fint.model.resource.utdanning.kodeverk.OtEnhetResource;
 import no.fintlabs.cache.Cache;
 import no.fintlabs.cache.CacheManager;
 import no.fintlabs.cache.packing.PackingTypes;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class OtEnhetService extends CacheService<OtStatusResource> {
+public class OtEnhetService extends CacheService<OtEnhetResource> {
 
-    private final OtEnhetKafkaConsumer elevfravarKafkaConsumer;
+    private final OtEnhetKafkaConsumer kafkaConsumer;
     private final OtEnhetLinker linker;
 
     public OtEnhetService(
@@ -25,38 +25,38 @@ public class OtEnhetService extends CacheService<OtStatusResource> {
             OtEnhetKafkaConsumer kafkaConsumer,
             OtEnhetLinker linker) {
         super(config, cacheManager, kafkaConsumer);
-        this.elevfravarKafkaConsumer = kafkaConsumer;
+        this.kafkaConsumer = kafkaConsumer;
         this.linker = linker;
     }
 
     @Override
-    protected Cache<OtStatusResource> initializeCache(CacheManager cacheManager, ConsumerConfig<OtStatusResource> consumerConfig, String s) {
+    protected Cache<OtEnhetResource> initializeCache(CacheManager cacheManager, ConsumerConfig<OtEnhetResource> consumerConfig, String s) {
         return cacheManager.create(PackingTypes.POJO, consumerConfig.getOrgId(), consumerConfig.getResourceName());
     }
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retension = elevfravarKafkaConsumer.registerListener(OtStatusResource.class, this::addResourceToCache);
+        long retension = kafkaConsumer.registerListener(OtEnhetResource.class, this::addResourceToCache);
         getCache().setRetentionPeriodInMs(retension);
     }
 
-    private void addResourceToCache(ConsumerRecord<String, OtStatusResource> consumerRecord) {
+    private void addResourceToCache(ConsumerRecord<String, OtEnhetResource> consumerRecord) {
         this.eventLogger.logDataRecieved();
         if (consumerRecord.value() == null) {
             getCache().remove(consumerRecord.key());
         } else {
-            OtStatusResource OtStatusResource = consumerRecord.value();
-            linker.mapLinks(OtStatusResource);
-            getCache().put(consumerRecord.key(), OtStatusResource, linker.hashCodes(OtStatusResource));
+            OtEnhetResource OtEnhetResource = consumerRecord.value();
+            linker.mapLinks(OtEnhetResource);
+            getCache().put(consumerRecord.key(), OtEnhetResource, linker.hashCodes(OtEnhetResource));
         }
     }
 
     @Override
-    public Optional<OtStatusResource> getBySystemId(String systemId) {
+    public Optional<OtEnhetResource> getBySystemId(String systemId) {
         return getCache().getLastUpdatedByFilter(systemId.hashCode(),
                 resource -> Optional
                         .ofNullable(resource)
-                        .map(OtStatusResource::getSystemId)
+                        .map(OtEnhetResource::getSystemId)
                         .map(Identifikator::getIdentifikatorverdi)
                         .map(systemId::equals)
                         .orElse(false));

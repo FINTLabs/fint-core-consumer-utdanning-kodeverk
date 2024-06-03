@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequestMapping(name = "OTEnhet", value = RestEndpoints.OTENHET, produces = {FintRelationsMediaType.APPLICATION_HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
-public class OtEnhetController extends ConsumerRestController<OtStatusResource> {
+public class OtEnhetController extends ConsumerRestController<OtEnhetResource> {
 
     public OtEnhetController(OtEnhetService service, OtEnhetLinker linker, FintFilterService oDataFilterService) {
         super(service, linker, oDataFilterService);
