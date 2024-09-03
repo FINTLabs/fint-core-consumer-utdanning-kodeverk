@@ -36,11 +36,11 @@ public class FagstatusService extends CacheService<FagstatusResource> {
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retension = kafkaConsumer.registerListener(FagstatusResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retension);
+        kafkaConsumer.registerListener(FagstatusResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, FagstatusResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         if (consumerRecord.value() == null) {
             getCache().remove(consumerRecord.key());

@@ -36,11 +36,11 @@ public class OtEnhetService extends CacheService<OtEnhetResource> {
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retension = kafkaConsumer.registerListener(OtEnhetResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retension);
+        kafkaConsumer.registerListener(OtEnhetResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, OtEnhetResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         if (consumerRecord.value() == null) {
             getCache().remove(consumerRecord.key());
