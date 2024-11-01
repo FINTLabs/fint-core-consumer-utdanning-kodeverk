@@ -69,6 +69,8 @@ jobs:
         include:
           - org: trondelagfylke-no
             cluster: aks-api-fint-2022-02-08
+          - org: rogfk-no
+            cluster: aks-api-fint-2022-02-08
           - org: agderfk-no
             cluster: aks-api-fint-2022-02-08
           - org: fintlabs-no
